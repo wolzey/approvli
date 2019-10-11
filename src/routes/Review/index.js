@@ -1,6 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Container, Panel } from './Review.styled'
+import {
+  Approval,
+  Avatar,
+  Card,
+  CardHeader,
+  CardContent,
+  Container,
+  Form,
+  LeftPanel,
+  Logo,
+  LogoWrapper,
+  Name,
+  NameWrapper,
+  PanelContent,
+  RightPanel,
+  Time
+} from './Review.styled'
+import Markdown from 'react-markdown'
+import moment from 'moment'
 
 const Review = ({ match: { params } }) => {
   const [response, setData] = useState(null)
@@ -56,18 +74,43 @@ const Review = ({ match: { params } }) => {
 
   if (loading) return <div>Loading...</div>
 
+  console.log(response)
+
+  const { pull_request: { body }, started_at, user: { avatar_url, login } } = response
+
   return (
-    <form onSubmit={onFormSubmit}>
-      <Container>
-        <Panel>
-          <textarea name="comment" onChange={updateFormValue} />
-        </Panel>
-        <Panel>
-          <input type="checkbox" name="approved" onChange={updateFormValue} />
-          <button type="submit">SEND</button>
-        </Panel>
-      </Container>
-    </form>
+    <Container>
+      <LeftPanel>
+        <PanelContent>
+          <Markdown source={body} />
+        </PanelContent>
+      </LeftPanel>
+      <RightPanel>
+        <Form onSubmit={onFormSubmit}>
+          <LogoWrapper>
+            <Logo />
+          </LogoWrapper>
+          <Card>
+            <CardHeader>
+              <Avatar url={avatar_url} />
+              <NameWrapper>
+                <Name>{login}</Name>
+                <Time>{moment(started_at).startOf('second').fromNow()}</Time>
+              </NameWrapper>
+              <Approval>Requests Approval</Approval>
+            </CardHeader>
+            <CardContent>
+              <textarea name="comment" onChange={updateFormValue} />
+              <input type="checkbox" name="approved" onChange={updateFormValue} />
+            </CardContent>
+          </Card>
+
+          <div>
+            <button type="submit">SEND</button>
+          </div>
+        </Form>
+      </RightPanel>
+    </Container>
   )
 }
 
