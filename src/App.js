@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import Routes from './routes'
+import { ThemeProvider } from 'styled-components'
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={{}}>
       <Routes />
-    </div>
+    </ThemeProvider>
   );
 }
 
