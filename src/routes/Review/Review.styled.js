@@ -53,7 +53,7 @@ export const PanelContent = styled.div`
     margin-bottom: 0;
   }
   
-  h1, h2, p {
+  blockquote, h1, h2, h3, p, pre {
     margin-bottom: 2rem;
   }
   
@@ -62,7 +62,7 @@ export const PanelContent = styled.div`
     max-width: 100%;
   }
   
-  h1, h2 {
+  h1, h2, h3 {
     font-weight: bold;
   }
   
@@ -76,8 +76,39 @@ export const PanelContent = styled.div`
     font-size: 1.75rem;
   }
   
+  h3 {
+    font-size: 1.5rem;
+  }
+  
   p {
     font-size: 1rem;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  em {
+    font-style: italic;
+  }
+  
+  code, pre {
+    font-family: monospace,monospace;
+    font-size: 1em;
+  }
+  
+  code {
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    padding: .2em .4em;
+  }
+  
+  blockquote {
+    border-left: .25em solid #dfe2e5;
+    color: #6a737d;
+    padding: 0 1em;
   }
   
   ul {
@@ -100,6 +131,7 @@ export const Card = styled.div`
   background: #222;
   border-radius: .25rem;
   color: white;
+  margin-bottom: 2rem;
 `
 
 export const CardHeader = styled.header`
@@ -113,7 +145,10 @@ export const CardContent = styled.div`
   padding: 2rem;
   
   textarea {
+    font-size: 1rem;
     height: 10rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
     width: 100%;
   }
 `
@@ -140,7 +175,6 @@ export const Logo = styled.div`
   background-image: url(${LogoImage});
   background-size: cover;
   height: 90px;
-  margin-bottom: 2rem;
   width: 90px;
 `
 
@@ -166,4 +200,74 @@ export const Name = styled.div`
 
 export const Time = styled.div`
   color: #ccc;
+`
+
+export  const ToggleButton = styled.div`
+  align-items: center;
+  border: .125rem solid white;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  height: 3rem;
+  position: relative;
+  
+  &:before {
+    background: white;
+    border-radius: 1.5rem;
+    content: '';
+    height: 3rem;
+    left: 50%;
+    position: absolute;
+    transition: left .125s linear;
+    width: 50%;
+  }
+  
+  > div {
+    flex: 1 1 50%;
+    font-size: .8125rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    transition: color .125s linear;
+    width: 50%;
+    
+    &:last-child {
+      color: #222;
+    }
+  }
+  
+  ${({approved}) => approved && css`
+    &:before {
+      left: 0;
+    }
+  
+    > div {
+      color: white;
+      
+      &:first-child {
+        color: #222;
+      }
+      
+      &:last-child {
+        color: white;
+      }
+    }
+  `}
+`
+
+export const Button = styled.button`
+  background: ${({ approved }) => approved ? '#539562' : '#CB4455'};
+  border: none;
+  border-radius: .25rem;
+  box-shadow: inset 0 0 0 2rem rgba(255, 255, 255, .6);
+  color: white;
+  cursor: pointer;
+  font-size: .8125rem;
+  font-weight: bold;
+  height: 6rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 100%;
 `

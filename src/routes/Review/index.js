@@ -3,6 +3,7 @@ import axios from 'axios'
 import {
   Approval,
   Avatar,
+  Button,
   Card,
   CardHeader,
   CardContent,
@@ -15,7 +16,8 @@ import {
   NameWrapper,
   PanelContent,
   RightPanel,
-  Time
+  Time,
+  ToggleButton,
 } from './Review.styled'
 import Markdown from 'react-markdown'
 import moment from 'moment'
@@ -27,6 +29,7 @@ const Review = ({ match: { params } }) => {
     comment: '',
     approved: true,
   })
+  const [approved, setApproved] = useState(true)
 
   useEffect(() => {
     async function getData() {
@@ -72,6 +75,10 @@ const Review = ({ match: { params } }) => {
     alert('sent')
   }
 
+  const handleToggle = () => {
+    setApproved(!approved)
+  }
+
   if (loading) return <div>Loading...</div>
 
   console.log(response)
@@ -101,13 +108,15 @@ const Review = ({ match: { params } }) => {
             </CardHeader>
             <CardContent>
               <textarea name="comment" onChange={updateFormValue} />
-              <input type="checkbox" name="approved" onChange={updateFormValue} />
+              <ToggleButton approved={approved} onClick={handleToggle}>
+                <div>Approve</div>
+                <div>Deny</div>
+              </ToggleButton>
+              <input type="checkbox" checked={approved} hidden name="approved" onChange={updateFormValue} />
             </CardContent>
           </Card>
 
-          <div>
-            <button type="submit">SEND</button>
-          </div>
+          <Button approved={approved} type="submit">Submit</Button>
         </Form>
       </RightPanel>
     </Container>
