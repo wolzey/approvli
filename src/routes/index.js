@@ -4,6 +4,7 @@ import Review from './Review'
 import { createBrowserHistory } from 'history'
 const history = createBrowserHistory()
 
+// Routes
 const Routes = () => {
   return (
     <Router history={history}>
