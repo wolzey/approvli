@@ -59,7 +59,7 @@ const Review = ({ match: { params } }) => {
     event.preventDefault()
 
     const formData = {
-      approved: form.approved === 'on' ? true : false,
+      approved: approved,
       comment: form.comment,
     }
 

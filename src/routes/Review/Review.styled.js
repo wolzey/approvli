@@ -17,6 +17,7 @@ export const Container = styled.div`
   
   @media only screen and (min-width: 768px) {
     flex-direction: row;  
+    flex-wrap: nowrap;
   }
   
   * {
@@ -45,6 +46,10 @@ export const RightPanel = styled.div`
   @media only screen and (min-width: 768px) {
     max-width: 30rem;
     padding-left: 2rem;  
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    width: 30rem;  
   }
 `
 
